@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { AccessDialog } from "./AccessDialog";
+
 
 export function Nav() {
   return (
@@ -22,8 +24,22 @@ export function Nav() {
             <a href="#vision" className="hover:text-foreground transition">Vision</a>
           </nav>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" className="hidden sm:inline-flex">Sign in</Button>
-            <Button size="sm" className="rounded-full">Request access</Button>
+            <AccessDialog
+              mode="signin"
+              trigger={
+                <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
+                  Sign in
+                </Button>
+              }
+            />
+            <AccessDialog
+              mode="register"
+              trigger={
+                <Button size="sm" className="rounded-full">
+                  Request access
+                </Button>
+              }
+            />
           </div>
         </div>
       </div>
