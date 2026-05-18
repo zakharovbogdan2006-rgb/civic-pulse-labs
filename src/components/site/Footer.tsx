@@ -49,7 +49,7 @@ export function Footer() {
             <div className="space-y-2 text-sm">
               <div>hello@civica.city</div>
               <div>partnerships@civica.city</div>
-              <div className="text-white/40">Copenhagen · Stockholm · Berlin</div>
+              <div className="text-white/40">Rotterdam · Den Haag · Amsterdam</div>
             </div>
           </div>
 
