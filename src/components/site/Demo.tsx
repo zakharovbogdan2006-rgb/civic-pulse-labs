@@ -53,28 +53,65 @@ export function Demo() {
           <div className="grid lg:grid-cols-5 gap-5">
             {/* Image + upload */}
             <div className="lg:col-span-2">
-              <div className="relative rounded-2xl border border-white/10 bg-[oklch(0.13_0.04_255)] overflow-hidden aspect-[4/5]">
-                <NeighborhoodIllustration />
+              <div
+                className="relative rounded-2xl border border-white/10 bg-[oklch(0.13_0.04_255)] overflow-hidden aspect-[4/5]"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  handleFile(e.dataTransfer.files?.[0]);
+                }}
+              >
+                {uploaded ? (
+                  <img src={uploaded.url} alt={uploaded.name} className="absolute inset-0 h-full w-full object-cover" />
+                ) : (
+                  <NeighborhoodIllustration />
+                )}
                 <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-[color:var(--success)]/20 border border-[color:var(--success)]/40 px-2.5 py-1 text-[11px] text-[color:var(--success)]">
                   <Shield className="h-3 w-3" /> Image validated
                 </div>
+                {uploaded && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      URL.revokeObjectURL(uploaded.url);
+                      setUploaded(null);
+                    }}
+                    className="absolute top-3 right-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/50 border border-white/15 hover:bg-black/70"
+                    aria-label="Remove image"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                )}
                 <div className="absolute bottom-3 left-3 right-3 rounded-xl border border-white/10 bg-black/40 backdrop-blur p-3">
                   <div className="flex items-center gap-2 text-xs text-white/60">
                     <MapPin className="h-3.5 w-3.5 text-[color:var(--accent)]" />
                     Detected location
                   </div>
-                  <div className="mt-1 text-sm">Jægersborggade · Nørrebro, Copenhagen</div>
+                  <div className="mt-1 text-sm">
+                    {uploaded ? uploaded.name : "Jægersborggade · Nørrebro, Copenhagen"}
+                  </div>
                   <div className="mt-1 text-[11px] text-white/40 font-mono">55.6928°N · 12.5439°E · confidence 94%</div>
                 </div>
               </div>
 
-              <button className="mt-4 w-full rounded-xl border border-dashed border-white/20 bg-white/[0.03] p-5 text-left hover:bg-white/[0.06] transition group">
+              <input
+                ref={inputRef}
+                type="file"
+                accept="image/png,image/jpeg"
+                className="hidden"
+                onChange={(e) => handleFile(e.target.files?.[0])}
+              />
+              <button
+                type="button"
+                onClick={() => inputRef.current?.click()}
+                className="mt-4 w-full rounded-xl border border-dashed border-white/20 bg-white/[0.03] p-5 text-left hover:bg-white/[0.06] transition group"
+              >
                 <div className="flex items-center gap-3">
                   <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 group-hover:bg-white/15">
-                    <Upload className="h-4 w-4" />
+                    {uploaded ? <FileCheck2 className="h-4 w-4 text-[color:var(--success)]" /> : <Upload className="h-4 w-4" />}
                   </div>
                   <div>
-                    <div className="text-sm">Upload your own neighborhood</div>
+                    <div className="text-sm">{uploaded ? "Replace image" : "Upload your own neighborhood"}</div>
                     <div className="text-xs text-white/50">PNG, JPG up to 10MB · validated before analysis</div>
                   </div>
                 </div>
