@@ -10,33 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPublicAccessRequestRouteImport } from './routes/api/public/access-request'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicAccessRequestRoute = ApiPublicAccessRequestRouteImport.update({
+  id: '/api/public/access-request',
+  path: '/api/public/access-request',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/public/access-request': typeof ApiPublicAccessRequestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/public/access-request': typeof ApiPublicAccessRequestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/public/access-request': typeof ApiPublicAccessRequestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/api/public/access-request'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/api/public/access-request'
+  id: '__root__' | '/' | '/api/public/access-request'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiPublicAccessRequestRoute: typeof ApiPublicAccessRequestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/access-request': {
+      id: '/api/public/access-request'
+      path: '/api/public/access-request'
+      fullPath: '/api/public/access-request'
+      preLoaderRoute: typeof ApiPublicAccessRequestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiPublicAccessRequestRoute: ApiPublicAccessRequestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
