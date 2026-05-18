@@ -32,6 +32,7 @@ export function Problem() {
                 </div>
                 <div className="mt-5 font-display text-4xl text-foreground">{s.value}</div>
                 <div className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.label}</div>
+                <div className="mt-3 text-[10px] uppercase tracking-wider text-muted-foreground/70">{s.source}</div>
                 <div className="absolute inset-x-6 bottom-3 h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-0 group-hover:opacity-100 transition" />
               </div>
             );
