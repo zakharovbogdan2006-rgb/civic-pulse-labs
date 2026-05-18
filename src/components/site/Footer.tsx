@@ -1,4 +1,17 @@
+import { toast } from "sonner";
+
 export function Footer() {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const email = String(fd.get("email") ?? "");
+    if (!email.includes("@")) {
+      toast.error("Please enter a valid email");
+      return;
+    }
+    toast.success("Thanks — we'll be in touch from a Civica address.");
+    e.currentTarget.reset();
+  };
   return (
     <footer className="bg-[oklch(0.1_0.04_255)] text-white/70 pt-20 pb-10">
       <div className="mx-auto max-w-7xl px-6">
@@ -28,9 +41,9 @@ export function Footer() {
           <div className="lg:col-span-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
             <div className="font-display text-xl text-white">Partnership inquiries</div>
             <p className="mt-2 text-sm">For municipalities, innovation programs, and research partners.</p>
-            <form className="mt-4 flex gap-2">
-              <input type="email" placeholder="your@city.gov" className="flex-1 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm placeholder:text-white/30 focus:outline-none focus:border-white/30" />
-              <button className="rounded-full bg-white text-[color:var(--primary)] text-sm font-medium px-4 py-2 hover:bg-white/90">Reach out</button>
+            <form className="mt-4 flex gap-2" onSubmit={handleSubmit}>
+              <input name="email" type="email" required placeholder="your@city.gov" className="flex-1 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm placeholder:text-white/30 focus:outline-none focus:border-white/30" />
+              <button type="submit" className="rounded-full bg-white text-[color:var(--primary)] text-sm font-medium px-4 py-2 hover:bg-white/90">Reach out</button>
             </form>
           </div>
         </div>
