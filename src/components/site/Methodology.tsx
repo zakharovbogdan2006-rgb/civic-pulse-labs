@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
-import { Network, Brain, Sigma, MapPin, Workflow, Database } from "lucide-react";
+import { Network, Brain, Sigma, MapPin, Workflow, Database, Shield } from "lucide-react";
 
 
 const tabs = [
@@ -11,7 +11,36 @@ const tabs = [
   { id: "learning", label: "Learning process", icon: Brain },
   { id: "equation", label: "Core equation", icon: Sigma },
   { id: "output", label: "Spatial output", icon: MapPin },
+  { id: "data", label: "Data & GDPR", icon: Shield },
 ] as const;
+
+const dataCategories = [
+  {
+    title: "Demographic & socioeconomic",
+    body: "Age distribution, single-person households, income, unemployment, migration background, population density.",
+    sources: "CBS (Statistics Netherlands), municipal open-data portals, neighborhood census datasets.",
+  },
+  {
+    title: "Urban environment & infrastructure",
+    body: "Walkability, green space access, land-use diversity, transit & cycling networks, community spaces, pedestrian connectivity.",
+    sources: "OpenStreetMap, municipal GIS, Dutch spatial planning & transport network datasets.",
+  },
+  {
+    title: "Mobility & connectivity",
+    body: "Commuting flows, pedestrian activity, transit usage, travel times, neighborhood-to-neighborhood connectivity.",
+    sources: "Public transport operators, anonymized mobility datasets, traffic sensors, smart-city infrastructure.",
+  },
+  {
+    title: "Social & health indicators",
+    body: "Self-reported loneliness, mental wellbeing surveys, social participation, healthcare access, community engagement.",
+    sources: "GGD GHOR Netherlands, public health surveys, municipal wellbeing programs.",
+  },
+  {
+    title: "Environment & public space",
+    body: "Noise levels, air quality, lighting, park accessibility, public space density.",
+    sources: "Environmental monitoring systems, satellite imagery, municipal environmental agencies.",
+  },
+];
 
 type TabId = (typeof tabs)[number]["id"];
 
@@ -208,6 +237,42 @@ export function Methodology() {
                 </div>
               </div>
               <RiskMapIllustration />
+            </div>
+          )}
+
+          {active === "data" && (
+            <div>
+              <h3 className="font-display text-2xl md:text-3xl">Data sources & GDPR compliance</h3>
+              <p className="mt-4 text-muted-foreground max-w-3xl leading-relaxed">
+                Civica's index for Dutch cities is built exclusively from data provided by{" "}
+                <span className="text-foreground">Dutch municipalities</span> and national open-data institutions.
+                All inputs are anonymized, aggregated at the neighborhood level, and fully{" "}
+                <span className="text-foreground">GDPR-compliant</span>. The system identifies spatial patterns and
+                vulnerable areas — never individuals.
+              </p>
+
+              <div className="mt-8 grid md:grid-cols-2 gap-3">
+                {dataCategories.map((c) => (
+                  <div key={c.title} className="rounded-xl border border-border bg-background/50 p-5">
+                    <div className="text-sm text-foreground">{c.title}</div>
+                    <div className="mt-2 text-xs text-muted-foreground leading-relaxed">{c.body}</div>
+                    <div className="mt-3 text-[11px] uppercase tracking-wider text-muted-foreground/70">Sources</div>
+                    <div className="mt-1 text-xs text-muted-foreground">{c.sources}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 rounded-2xl border border-border bg-gradient-to-br from-background/70 to-background/20 p-6">
+                <div className="flex items-center gap-2 text-sm text-foreground">
+                  <Shield className="h-4 w-4 text-[color:var(--accent)]" />
+                  Privacy & ethical safeguards
+                </div>
+                <ul className="mt-3 grid sm:grid-cols-3 gap-3 text-xs text-muted-foreground">
+                  <li className="rounded-lg border border-border bg-background/50 p-3">Anonymized at source — no personal identifiers.</li>
+                  <li className="rounded-lg border border-border bg-background/50 p-3">Aggregated to neighborhood level — never individual tracking.</li>
+                  <li className="rounded-lg border border-border bg-background/50 p-3">Fully GDPR-compliant data handling & retention.</li>
+                </ul>
+              </div>
             </div>
           )}
         </div>
