@@ -281,3 +281,23 @@ function RiskMapIllustration() {
     </div>
   );
 }
+
+function FormulaBlock() {
+  const html = useMemo(
+    () =>
+      katex.renderToString(
+        String.raw`h_v^{(k+1)} = \sigma\!\left( W \sum_{u \in \mathcal{N}(v)} h_u^{(k)} + b \right)`,
+        { displayMode: true, throwOnError: false, output: "html" }
+      ),
+    []
+  );
+  return (
+    <div className="mt-8 rounded-2xl border border-border bg-gradient-to-br from-background/70 to-background/20 p-10 md:p-16 flex items-center justify-center overflow-x-auto">
+      <div
+        className="text-foreground"
+        style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)" }}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </div>
+  );
+}
