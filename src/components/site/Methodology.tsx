@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import katex from "katex";
+import "katex/dist/katex.min.css";
 import { Network, Brain, Sigma, MapPin, Workflow, Database } from "lucide-react";
+
 
 const tabs = [
   { id: "overview", label: "Overview", icon: Network },
@@ -166,38 +169,8 @@ export function Methodology() {
                 Each layer updates a node's representation by aggregating its neighbors and passing the result through a learned
                 linear transformation and a non-linear activation.
               </p>
-              <div className="mt-8 rounded-2xl border border-border bg-gradient-to-br from-background/60 to-background/20 p-10 md:p-14 flex items-center justify-center overflow-x-auto">
-                <math
-                  xmlns="http://www.w3.org/1998/Math/MathML"
-                  display="block"
-                  style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontFamily: "'Cambria Math', 'STIX Two Math', 'Latin Modern Math', Georgia, serif" }}
-                >
-                  <mrow>
-                    <msubsup>
-                      <mi>h</mi>
-                      <mi>v</mi>
-                      <mrow><mo>(</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow>
-                    </msubsup>
-                    <mo>=</mo>
-                    <mi>σ</mi>
-                    <mrow>
-                      <mo>(</mo>
-                      <mi>W</mi>
-                      <munder>
-                        <mo>∑</mo>
-                        <mrow><mi>u</mi><mo>∈</mo><mi>N</mi><mo>(</mo><mi>v</mi><mo>)</mo></mrow>
-                      </munder>
-                      <msup>
-                        <msub><mi>h</mi><mi>u</mi></msub>
-                        <mrow><mo>(</mo><mi>k</mi><mo>)</mo></mrow>
-                      </msup>
-                      <mo>+</mo>
-                      <mi>b</mi>
-                      <mo>)</mo>
-                    </mrow>
-                  </mrow>
-                </math>
-              </div>
+              <FormulaBlock />
+
 
               <div className="mt-6 grid sm:grid-cols-2 gap-3">
                 {[
