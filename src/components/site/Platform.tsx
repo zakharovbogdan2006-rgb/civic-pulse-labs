@@ -10,7 +10,7 @@ const layers = [
     tone: "accent",
   },
   {
-    tag: "Layer 02 · Copenhagen-inspired",
+    tag: "Layer 02 · Rotterdam pilot-tested",
     icon: Network,
     title: "Urban Community Intelligence",
     body: "Analyzes neighborhoods and public infrastructure to surface places that strengthen or weaken social connectedness across the city.",

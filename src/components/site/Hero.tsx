@@ -50,7 +50,7 @@ export function Hero() {
               <div className="h-2.5 w-2.5 rounded-full bg-white/20" />
               <div className="h-2.5 w-2.5 rounded-full bg-white/20" />
               <div className="h-2.5 w-2.5 rounded-full bg-white/20" />
-              <div className="ml-3 text-xs text-white/40 font-mono">civica.city / dashboard / nørrebro</div>
+              <div className="ml-3 text-xs text-white/40 font-mono">civica.city / dashboard / afrikaanderwijk</div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-5">
               <MiniStat icon={<Activity className="h-4 w-4" />} label="Loneliness risk" value="34 / 100" tone="success" />
@@ -135,7 +135,7 @@ function CityMapSVG() {
         ))}
       </svg>
       <div className="absolute bottom-3 left-3 text-[10px] font-mono text-white/40">LIVE · neighborhood connectedness heatmap</div>
-      <div className="absolute top-3 right-3 text-[10px] font-mono text-white/40">52.520°N · 13.405°E</div>
+      <div className="absolute top-3 right-3 text-[10px] font-mono text-white/40">51.9023°N · 4.4965°E</div>
     </div>
   );
 }

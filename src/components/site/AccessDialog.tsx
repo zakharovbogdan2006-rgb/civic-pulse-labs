@@ -118,7 +118,7 @@ export function AccessDialog({
                 <>
                   <div className="space-y-1.5">
                     <Label htmlFor="org">City / organization</Label>
-                    <Input id="org" name="org" placeholder="City of Copenhagen" required />
+                    <Input id="org" name="org" placeholder="City of Rotterdam" required />
                   </div>
                   <div className="space-y-1.5">
                     <Label htmlFor="note">What would you like to explore?</Label>
