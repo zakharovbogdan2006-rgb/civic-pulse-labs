@@ -76,6 +76,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "AI-powered urban wellbeing platform helping cities fight loneliness through social prescribing and neighborhood intelligence." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Civica — AI Infrastructure for Urban Wellbeing" },
+      { name: "twitter:title", content: "Civica — AI Infrastructure for Urban Wellbeing" },
+      { property: "og:description", content: "AI-powered urban wellbeing platform helping cities fight loneliness through social prescribing and neighborhood intelligence." },
+      { name: "twitter:description", content: "AI-powered urban wellbeing platform helping cities fight loneliness through social prescribing and neighborhood intelligence." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a382e98f-7df6-49bc-b175-0e80091bc2d7/id-preview-23363cdb--1af95710-b5ff-49a2-8c00-f128ed35ebde.lovable.app-1779140336175.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a382e98f-7df6-49bc-b175-0e80091bc2d7/id-preview-23363cdb--1af95710-b5ff-49a2-8c00-f128ed35ebde.lovable.app-1779140336175.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
