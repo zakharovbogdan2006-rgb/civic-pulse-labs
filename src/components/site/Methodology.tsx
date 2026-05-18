@@ -1,11 +1,12 @@
 import { useState, useMemo } from "react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
-import { Network, Brain, Sigma, MapPin, Workflow, Database, Shield } from "lucide-react";
+import { Network, Brain, Sigma, MapPin, Workflow, Database, Shield, Calculator } from "lucide-react";
 
 
 const tabs = [
   { id: "overview", label: "Overview", icon: Network },
+  { id: "score", label: "Score calculation", icon: Calculator },
   { id: "graph", label: "Graph structure", icon: Workflow },
   { id: "features", label: "Node features", icon: Database },
   { id: "learning", label: "Learning process", icon: Brain },
@@ -13,6 +14,16 @@ const tabs = [
   { id: "output", label: "Spatial output", icon: MapPin },
   { id: "data", label: "Data & GDPR", icon: Shield },
 ] as const;
+
+const scoreFactors = [
+  { name: "Single-person households", weight: 0.22, value: 0.71, contrib: 0.156, source: "CBS" },
+  { name: "Social infrastructure density", weight: 0.18, value: 0.34, contrib: 0.061, source: "OSM + municipal GIS" },
+  { name: "Walkability & green access", weight: 0.16, value: 0.42, contrib: 0.067, source: "OSM" },
+  { name: "Transit connectivity", weight: 0.14, value: 0.55, contrib: 0.077, source: "OV / NS" },
+  { name: "Age vulnerability (65+ share)", weight: 0.12, value: 0.48, contrib: 0.058, source: "CBS" },
+  { name: "Income & unemployment", weight: 0.10, value: 0.39, contrib: 0.039, source: "CBS" },
+  { name: "Self-reported loneliness (GGD)", weight: 0.08, value: 0.62, contrib: 0.050, source: "GGD GHOR" },
+];
 
 const dataCategories = [
   {
