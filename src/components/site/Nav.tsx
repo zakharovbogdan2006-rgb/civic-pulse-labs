@@ -20,6 +20,7 @@ export function Nav() {
             <a href="#platform" className="hover:text-foreground transition">Platform</a>
             <a href="#how" className="hover:text-foreground transition">How it works</a>
             <a href="#demo" className="hover:text-foreground transition">AI Demo</a>
+            <a href="#methodology" className="hover:text-foreground transition">Methodology</a>
             <a href="#cities" className="hover:text-foreground transition">For Cities</a>
             <a href="#vision" className="hover:text-foreground transition">Vision</a>
           </nav>
