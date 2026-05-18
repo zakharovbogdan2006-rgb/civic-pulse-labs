@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
-import { Network, Brain, Sigma, MapPin, Workflow, Database } from "lucide-react";
+import { Network, Brain, Sigma, MapPin, Workflow, Database, Shield } from "lucide-react";
 
 
 const tabs = [
@@ -11,7 +11,36 @@ const tabs = [
   { id: "learning", label: "Learning process", icon: Brain },
   { id: "equation", label: "Core equation", icon: Sigma },
   { id: "output", label: "Spatial output", icon: MapPin },
+  { id: "data", label: "Data & GDPR", icon: Shield },
 ] as const;
+
+const dataCategories = [
+  {
+    title: "Demographic & socioeconomic",
+    body: "Age distribution, single-person households, income, unemployment, migration background, population density.",
+    sources: "CBS (Statistics Netherlands), municipal open-data portals, neighborhood census datasets.",
+  },
+  {
+    title: "Urban environment & infrastructure",
+    body: "Walkability, green space access, land-use diversity, transit & cycling networks, community spaces, pedestrian connectivity.",
+    sources: "OpenStreetMap, municipal GIS, Dutch spatial planning & transport network datasets.",
+  },
+  {
+    title: "Mobility & connectivity",
+    body: "Commuting flows, pedestrian activity, transit usage, travel times, neighborhood-to-neighborhood connectivity.",
+    sources: "Public transport operators, anonymized mobility datasets, traffic sensors, smart-city infrastructure.",
+  },
+  {
+    title: "Social & health indicators",
+    body: "Self-reported loneliness, mental wellbeing surveys, social participation, healthcare access, community engagement.",
+    sources: "GGD GHOR Netherlands, public health surveys, municipal wellbeing programs.",
+  },
+  {
+    title: "Environment & public space",
+    body: "Noise levels, air quality, lighting, park accessibility, public space density.",
+    sources: "Environmental monitoring systems, satellite imagery, municipal environmental agencies.",
+  },
+];
 
 type TabId = (typeof tabs)[number]["id"];
 
