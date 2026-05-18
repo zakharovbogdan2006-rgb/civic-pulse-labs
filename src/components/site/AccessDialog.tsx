@@ -32,24 +32,43 @@ export function AccessDialog({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    const email = String(fd.get("email") ?? "");
+    const email = String(fd.get("email") ?? "").trim();
     if (!email.includes("@")) {
       toast.error("Please enter a valid email");
       return;
     }
     setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 700));
-    setSubmitting(false);
-    setDone(true);
-    toast.success(
-      mode === "register"
-        ? "Request received — our team will reach out shortly."
-        : "Magic link sent — check your inbox.",
-    );
-    setTimeout(() => {
-      setOpen(false);
-      setTimeout(() => setDone(false), 300);
-    }, 1400);
+    try {
+      const res = await fetch("/api/public/access-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          requestType: mode,
+          email,
+          firstName: String(fd.get("firstName") ?? "") || undefined,
+          lastName: String(fd.get("lastName") ?? "") || undefined,
+          organization: String(fd.get("org") ?? "") || undefined,
+          note: String(fd.get("note") ?? "") || undefined,
+          source: "access-dialog",
+        }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      setDone(true);
+      toast.success(
+        mode === "register"
+          ? "Request received — our team will reach out shortly."
+          : "Thanks — we'll be in touch shortly.",
+      );
+      setTimeout(() => {
+        setOpen(false);
+        setTimeout(() => setDone(false), 300);
+      }, 1600);
+    } catch (err) {
+      console.error(err);
+      toast.error("Couldn't submit — please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
