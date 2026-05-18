@@ -1,16 +1,31 @@
 import { toast } from "sonner";
 
 export function Footer() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
-    const email = String(fd.get("email") ?? "");
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const email = String(fd.get("email") ?? "").trim();
     if (!email.includes("@")) {
       toast.error("Please enter a valid email");
       return;
     }
-    toast.success("Thanks — we'll be in touch from a Civica address.");
-    e.currentTarget.reset();
+    try {
+      const res = await fetch("/api/public/access-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          requestType: "partnership",
+          email,
+          source: "footer",
+        }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      toast.success("Thanks — we'll be in touch from a Civica address.");
+      form.reset();
+    } catch {
+      toast.error("Couldn't submit — please try again.");
+    }
   };
   return (
     <footer className="bg-[oklch(0.1_0.04_255)] text-white/70 pt-20 pb-10">
