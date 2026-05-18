@@ -5,6 +5,7 @@ import { Problem } from "@/components/site/Problem";
 import { Platform } from "@/components/site/Platform";
 import { HowItWorks } from "@/components/site/HowItWorks";
 import { Demo } from "@/components/site/Demo";
+import { Methodology } from "@/components/site/Methodology";
 import { Cities } from "@/components/site/Cities";
 import { Vision } from "@/components/site/Vision";
 import { Footer } from "@/components/site/Footer";
@@ -30,6 +31,7 @@ function Index() {
       <Platform />
       <HowItWorks />
       <Demo />
+      <Methodology />
       <Cities />
       <Vision />
       <Footer />
