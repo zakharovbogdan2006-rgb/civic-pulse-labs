@@ -1,5 +1,7 @@
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Upload, Shield, MapPin, Star, Lightbulb, CalendarHeart, Sparkles } from "lucide-react";
+import { Upload, Shield, MapPin, Star, Lightbulb, CalendarHeart, Sparkles, FileCheck2, X } from "lucide-react";
+import { toast } from "sonner";
 
 const criteria = [
   { name: "Walkability", score: 4 },
@@ -15,6 +17,24 @@ const criteria = [
 ];
 
 export function Demo() {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [uploaded, setUploaded] = useState<{ name: string; url: string } | null>(null);
+
+  const handleFile = (file: File | undefined) => {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please upload an image (PNG or JPG)");
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("File too large — 10MB max");
+      return;
+    }
+    const url = URL.createObjectURL(file);
+    setUploaded({ name: file.name, url });
+    toast.success("Image validated · running neighborhood analysis…");
+  };
+
   return (
     <section id="demo" className="relative py-28 bg-hero text-white overflow-hidden">
       <div className="absolute inset-0 grid-bg opacity-30" />
