@@ -1,10 +1,10 @@
 import { TrendingUp, Heart, Building2, Users2 } from "lucide-react";
 
 const stats = [
-  { value: "1 in 3", label: "urban residents report chronic loneliness", icon: Users2, tone: "accent" },
-  { value: "29%", label: "increased risk of early mortality from social isolation", icon: Heart, tone: "violet" },
-  { value: "60%", label: "of public spaces are underused for community life", icon: Building2, tone: "success" },
-  { value: "+47%", label: "rise in loneliness among under-30s since 2018", icon: TrendingUp, tone: "accent" },
+  { value: "≈50%", label: "of Rotterdammers report feeling lonely (somewhat or strongly)", icon: Users2, tone: "accent", source: "GGD Rotterdam-Rijnmond · Gezondheidsmonitor 2022" },
+  { value: "10%", label: "of Dutch residents aged 15+ are strongly lonely in 2024", icon: TrendingUp, tone: "success", source: "CBS · Sociale samenhang en welzijn 2024" },
+  { value: "50%", label: "of Rotterdam residents aged 65+ feel lonely", icon: Heart, tone: "violet", source: "Gemeente Rotterdam · Feitenkaart Eenzaamheid Ouderen" },
+  { value: "26%", label: "higher mortality risk linked to social isolation", icon: Building2, tone: "accent", source: "Holt-Lunstad et al. · meta-analysis, 2015" },
 ];
 
 export function Problem() {
