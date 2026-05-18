@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import katex from "katex";
+import "katex/dist/katex.min.css";
 import { Network, Brain, Sigma, MapPin, Workflow, Database } from "lucide-react";
+
 
 const tabs = [
   { id: "overview", label: "Overview", icon: Network },
@@ -166,14 +169,9 @@ export function Methodology() {
                 Each layer updates a node's representation by aggregating its neighbors and passing the result through a learned
                 linear transformation and a non-linear activation.
               </p>
-              <div className="mt-8 rounded-2xl border border-border bg-background/60 p-8 text-center">
-                <div className="font-mono text-2xl md:text-3xl text-foreground leading-relaxed">
-                  h<sub className="text-base">v</sub>
-                  <sup className="text-base">(k+1)</sup> = σ ( W · Σ
-                  <sub className="text-base">u ∈ N(v)</sub> h<sub className="text-base">u</sub>
-                  <sup className="text-base">(k)</sup> + b )
-                </div>
-              </div>
+              <FormulaBlock />
+
+
               <div className="mt-6 grid sm:grid-cols-2 gap-3">
                 {[
                   ["hᵥ", "Representation (embedding) of a neighborhood"],
@@ -280,6 +278,26 @@ function RiskMapIllustration() {
         ))}
       </div>
       <div className="mt-3 text-center text-xs text-muted-foreground">Predicted spatial loneliness risk · district grid</div>
+    </div>
+  );
+}
+
+function FormulaBlock() {
+  const html = useMemo(
+    () =>
+      katex.renderToString(
+        String.raw`h_v^{(k+1)} = \sigma\!\left( W \sum_{u \in \mathcal{N}(v)} h_u^{(k)} + b \right)`,
+        { displayMode: true, throwOnError: false, output: "html" }
+      ),
+    []
+  );
+  return (
+    <div className="mt-8 rounded-2xl border border-border bg-gradient-to-br from-background/70 to-background/20 p-10 md:p-16 flex items-center justify-center overflow-x-auto">
+      <div
+        className="text-foreground"
+        style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)" }}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </div>
   );
 }
