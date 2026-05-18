@@ -46,7 +46,7 @@ export function Demo() {
           <h2 className="font-display text-4xl md:text-6xl leading-[1.05]">
             <span className="text-gradient">See your city</span><br/>through Civica's eyes.
           </h2>
-          <p className="mt-5 text-white/70">A live preview of the AI Neighborhood Analysis Tool — running on a Copenhagen district sample.</p>
+          <p className="mt-5 text-white/70">A live preview of the AI Neighborhood Analysis Tool — running on a Amsterdam district sample.</p>
         </div>
 
         <div className="rounded-3xl border border-white/10 bg-[oklch(0.16_0.04_255)]/80 backdrop-blur-xl p-5 md:p-7 shadow-elegant">
@@ -88,9 +88,9 @@ export function Demo() {
                     Detected location
                   </div>
                   <div className="mt-1 text-sm">
-                    {uploaded ? uploaded.name : "Jægersborggade · Nørrebro, Copenhagen"}
+                    {uploaded ? uploaded.name : "Javastraat · Indische Buurt, Amsterdam"}
                   </div>
-                  <div className="mt-1 text-[11px] text-white/40 font-mono">55.6928°N · 12.5439°E · confidence 94%</div>
+                  <div className="mt-1 text-[11px] text-white/40 font-mono">52.3640°N · 4.9410°E · confidence 94%</div>
                 </div>
               </div>
 
@@ -159,13 +159,13 @@ export function Demo() {
                 <RecCard
                   icon={<Lightbulb className="h-4 w-4" />}
                   title="Urban design improvements"
-                  items={["Add 14 seating clusters along Jægersborggade", "Convert parking strip into pocket plaza", "Soft lighting on side streets to extend evening use"]}
+                  items={["Add 14 seating clusters along Javastraat", "Convert parking strip into pocket plaza", "Soft lighting on side streets to extend evening use"]}
                   tone="accent"
                 />
                 <RecCard
                   icon={<CalendarHeart className="h-4 w-4" />}
                   title="Best event locations"
-                  items={["Assistens corner — Saturday morning market", "Schoolyard #4 — intergenerational dinners", "Underused alley by library — repair café"]}
+                  items={["Dappermarkt corner — Saturday morning market", "Schoolyard #4 — intergenerational dinners", "Underused alley by library — repair café"]}
                   tone="violet"
                 />
               </div>
@@ -180,19 +180,19 @@ export function Demo() {
                   onClick={() => {
                     const report = {
                       generatedAt: new Date().toISOString(),
-                      location: uploaded?.name ?? "Jægersborggade · Nørrebro, Copenhagen",
-                      coordinates: { lat: 55.6928, lon: 12.5439, confidence: 0.94 },
+                      location: uploaded?.name ?? "Javastraat · Indische Buurt, Amsterdam",
+                      coordinates: { lat: 52.3640, lon: 4.9410, confidence: 0.94 },
                       lonelinessRiskScore: 42,
                       riskLevel: "moderate",
                       criteria,
                       recommendations: {
                         urbanDesign: [
-                          "Add 14 seating clusters along Jægersborggade",
+                          "Add 14 seating clusters along Javastraat",
                           "Convert parking strip into pocket plaza",
                           "Soft lighting on side streets to extend evening use",
                         ],
                         eventLocations: [
-                          "Assistens corner — Saturday morning market",
+                          "Dappermarkt corner — Saturday morning market",
                           "Schoolyard #4 — intergenerational dinners",
                           "Underused alley by library — repair café",
                         ],
