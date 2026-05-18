@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, MapPin, Activity, Users } from "lucide-react";
+import { AccessDialog } from "./AccessDialog";
+
 
 export function Hero() {
   return (
@@ -25,12 +27,19 @@ export function Hero() {
         </p>
 
         <div className="mt-10 flex flex-wrap justify-center gap-3">
-          <Button size="lg" className="rounded-full bg-white text-[color:var(--primary)] hover:bg-white/90 shadow-glow">
-            Explore the platform <ArrowRight className="ml-1.5 h-4 w-4" />
-          </Button>
-          <Button size="lg" variant="outline" className="rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10">
-            See AI analysis demo
-          </Button>
+          <AccessDialog
+            mode="register"
+            trigger={
+              <Button size="lg" className="rounded-full bg-white text-[color:var(--primary)] hover:bg-white/90 shadow-glow">
+                Explore the platform <ArrowRight className="ml-1.5 h-4 w-4" />
+              </Button>
+            }
+          />
+          <a href="#demo">
+            <Button size="lg" variant="outline" className="rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10">
+              See AI analysis demo
+            </Button>
+          </a>
         </div>
 
         {/* Floating dashboard preview */}
