@@ -132,6 +132,65 @@ export function Methodology() {
             </div>
           )}
 
+          {active === "score" && (
+            <div>
+              <h3 className="font-display text-2xl md:text-3xl">How the score is actually calculated</h3>
+              <p className="mt-4 text-muted-foreground max-w-3xl leading-relaxed">
+                For each district we build a normalized feature vector (every indicator scaled to 0–1, higher = more risk),
+                multiply by a learned weight, sum the contributions, then adjust by the GNN neighbor signal.
+                The result is squashed into a 0–100 risk score.
+              </p>
+
+              <div className="mt-8 rounded-2xl border border-border bg-background/50 overflow-hidden">
+                <div className="grid grid-cols-12 gap-2 px-5 py-3 text-[11px] uppercase tracking-wider text-muted-foreground border-b border-border">
+                  <div className="col-span-5">Indicator</div>
+                  <div className="col-span-2 text-right">Weight wᵢ</div>
+                  <div className="col-span-2 text-right">Value xᵢ</div>
+                  <div className="col-span-3 text-right">wᵢ · xᵢ</div>
+                </div>
+                {scoreFactors.map((f) => (
+                  <div key={f.name} className="grid grid-cols-12 gap-2 px-5 py-3 text-sm border-b border-border/50 last:border-0">
+                    <div className="col-span-5">
+                      <div className="text-foreground">{f.name}</div>
+                      <div className="text-[11px] text-muted-foreground">Source: {f.source}</div>
+                    </div>
+                    <div className="col-span-2 text-right font-mono text-muted-foreground">{f.weight.toFixed(2)}</div>
+                    <div className="col-span-2 text-right font-mono text-muted-foreground">{f.value.toFixed(2)}</div>
+                    <div className="col-span-3 text-right font-mono text-foreground">{f.contrib.toFixed(3)}</div>
+                  </div>
+                ))}
+                <div className="grid grid-cols-12 gap-2 px-5 py-3 text-sm bg-background/70">
+                  <div className="col-span-9 text-muted-foreground">Σ wᵢ · xᵢ &nbsp;(raw feature score)</div>
+                  <div className="col-span-3 text-right font-mono text-foreground">0.508</div>
+                </div>
+              </div>
+
+              <div className="mt-6 grid md:grid-cols-3 gap-3">
+                <div className="rounded-xl border border-border bg-background/50 p-4">
+                  <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Step 1 — Features</div>
+                  <div className="mt-2 text-sm">Raw score = <span className="font-mono text-foreground">0.508</span></div>
+                </div>
+                <div className="rounded-xl border border-border bg-background/50 p-4">
+                  <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Step 2 — GNN neighbors</div>
+                  <div className="mt-2 text-sm">+ α · mean(neighbors) = <span className="font-mono text-foreground">+ 0.3 · 0.46 = 0.138</span></div>
+                </div>
+                <div className="rounded-xl border border-border bg-background/50 p-4">
+                  <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Step 3 — Squash</div>
+                  <div className="mt-2 text-sm">σ(0.646) · 100 ≈ <span className="font-mono text-[color:var(--accent)]">66 / 100</span></div>
+                </div>
+              </div>
+
+              <div className="mt-6 rounded-2xl border border-border bg-gradient-to-br from-background/70 to-background/20 p-6">
+                <div className="text-sm text-foreground">Worked example — district in Rotterdam-Zuid</div>
+                <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                  High share of single-person households (0.71) and elevated GGD self-reported loneliness (0.62) push the raw
+                  score up. Weak social infrastructure (0.34) adds little offset. Neighboring districts also score moderately high
+                  (mean 0.46), so the GNN reinforces the signal. Final risk: <span className="text-foreground">66 / 100 — high</span>.
+                </p>
+              </div>
+            </div>
+          )}
+
           {active === "graph" && (
             <div className="grid lg:grid-cols-2 gap-10">
               <div>
