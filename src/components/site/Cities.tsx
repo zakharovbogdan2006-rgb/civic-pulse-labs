@@ -3,7 +3,7 @@ import { Building2, Map, HeartPulse, Users, Handshake } from "lucide-react";
 const benefits = [
   { icon: Building2, title: "City governments", body: "Evidence-based budgets for neighborhoods that need social infrastructure most." },
   { icon: Map, title: "Urban planners", body: "Quantify connectedness before approving every public-realm intervention." },
-  { icon: HeartPulse, title: "Public health", body: "Detect loneliness hotspots early — before they translate into clinical demand." },
+  { icon: HeartPulse, title: "Public health", body: "Spot wijk-level social infrastructure gaps early — before they translate into clinical demand." },
   { icon: Users, title: "Social workers", body: "Smarter caseload prioritization and personalized community matches." },
   { icon: Handshake, title: "NGOs & community", body: "Reach the residents who would benefit most from your programs." },
 ];
@@ -41,7 +41,7 @@ export function Cities() {
           <div className="relative max-w-3xl">
             <div className="text-xs uppercase tracking-widest text-muted-foreground mb-4">Pilot insight</div>
             <p className="font-display text-2xl md:text-4xl leading-[1.15]">
-              "For the first time, we can see <span className="text-[color:var(--violet)]">where loneliness lives</span> in our city — and design interventions that actually reach those streets."
+              "For the first time, we can see <span className="text-[color:var(--violet)]">which streets our community programs are not reaching</span> — and target outreach to the places where social infrastructure is thinnest."
             </p>
             <div className="mt-6 text-sm text-muted-foreground">— Director of Urban Wellbeing, Northern European pilot city</div>
           </div>

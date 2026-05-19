@@ -53,7 +53,7 @@ export function Hero() {
               <div className="ml-3 text-xs text-white/40 font-mono">civica.city / dashboard / afrikaanderwijk</div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-5">
-              <MiniStat icon={<Activity className="h-4 w-4" />} label="Loneliness risk" value="34 / 100" tone="success" />
+              <MiniStat icon={<Activity className="h-4 w-4" />} label="Connectedness" value="66 / 100" tone="success" />
               <MiniStat icon={<Users className="h-4 w-4" />} label="Active community ties" value="+18%" tone="accent" />
               <MiniStat icon={<MapPin className="h-4 w-4" />} label="Third places" value="12 mapped" tone="violet" />
             </div>
@@ -85,7 +85,7 @@ function MiniStat({ icon, label, value, tone }: { icon: React.ReactNode; label: 
       <div className={`flex items-center gap-2 text-xs ${color}`}>{icon}{label}</div>
       <div className="mt-2 font-display text-2xl text-white">{value}</div>
       <div className="mt-3 h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
-        <div className={`h-full rounded-full ${tone === "success" ? "bg-[color:var(--success)]" : tone === "accent" ? "bg-[color:var(--accent)]" : "bg-[color:var(--violet)]"}`} style={{ width: tone === "success" ? "34%" : tone === "accent" ? "68%" : "55%" }} />
+        <div className={`h-full rounded-full ${tone === "success" ? "bg-[color:var(--success)]" : tone === "accent" ? "bg-[color:var(--accent)]" : "bg-[color:var(--violet)]"}`} style={{ width: tone === "success" ? "66%" : tone === "accent" ? "68%" : "55%" }} />
       </div>
     </div>
   );

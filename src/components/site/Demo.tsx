@@ -122,13 +122,13 @@ export function Demo() {
             <div className="lg:col-span-3 space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-                  <div className="text-xs uppercase tracking-widest text-white/50">Loneliness risk score</div>
+                  <div className="text-xs uppercase tracking-widest text-white/50">Community Connectedness Index</div>
                   <div className="mt-3 flex items-end gap-3">
-                    <div className="font-display text-6xl text-white">42</div>
-                    <div className="pb-2 text-sm text-[color:var(--warning)]">moderate</div>
+                    <div className="font-display text-6xl text-white">58</div>
+                    <div className="pb-2 text-sm text-[color:var(--warning)]">moderate connectedness</div>
                   </div>
-                  <RiskMeter value={42} />
-                  <div className="mt-3 text-xs text-white/50">Below city average · trending downward last 6 months.</div>
+                  <RiskMeter value={58} />
+                  <div className="mt-3 text-xs text-white/50">Above city average · trending upward last 6 months.</div>
                 </div>
 
                 <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
@@ -182,8 +182,8 @@ export function Demo() {
                       generatedAt: new Date().toISOString(),
                       location: uploaded?.name ?? "Pretorialaan · Afrikaanderwijk, Rotterdam",
                       coordinates: { lat: 51.9023, lon: 4.4965, confidence: 0.94 },
-                      lonelinessRiskScore: 42,
-                      riskLevel: "moderate",
+                      connectednessIndex: 58,
+                      connectednessLevel: "moderate",
                       criteria,
                       recommendations: {
                         urbanDesign: [
@@ -226,7 +226,7 @@ export function Demo() {
 function RiskMeter({ value }: { value: number }) {
   return (
     <div className="mt-3 h-2 w-full rounded-full bg-white/10 overflow-hidden">
-      <div className="h-full rounded-full bg-gradient-to-r from-[color:var(--success)] via-[color:var(--warning)] to-[color:var(--destructive)]" style={{ width: `${value}%` }} />
+      <div className="h-full rounded-full bg-gradient-to-r from-[color:var(--destructive)] via-[color:var(--warning)] to-[color:var(--success)]" style={{ width: `${value}%` }} />
     </div>
   );
 }
