@@ -4,8 +4,8 @@ const benefits = [
   { icon: Building2, title: "City governments", body: "Evidence-based budgets for neighborhoods that need social infrastructure most." },
   { icon: Map, title: "Urban planners", body: "Quantify connectedness before approving every public-realm intervention." },
   { icon: HeartPulse, title: "Public health", body: "Spot wijk-level social infrastructure gaps early — before they translate into clinical demand." },
-  { icon: Users, title: "Social workers", body: "Smarter caseload prioritization and personalized community matches." },
-  { icon: Handshake, title: "NGOs & community", body: "Reach the residents who would benefit most from your programs." },
+  { icon: Users, title: "Social workers", body: "A 30-second tool for recommending warmly, not a caseload diagnostic." },
+  { icon: Handshake, title: "NGOs & community", body: "Reach the wijken where existing programs aren't being found — without ever profiling who lives there." },
 ];
 
 export function Cities() {

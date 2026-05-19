@@ -5,8 +5,8 @@ const layers = [
     tag: "Layer 01 · UK-inspired",
     icon: HeartHandshake,
     title: "AI Social Prescribing",
-    body: "Identifies residents and neighborhoods at risk of isolation and matches them with local clubs, volunteering, wellness programs, cultural events, libraries, and community groups.",
-    bullets: ["Prioritized outreach for social workers", "Personalized community recommendations", "Wellbeing trends over time", "Designed to increase offline interaction"],
+    body: "A 30-second toolkit for the frontline workers who already see isolated residents every week — librarians, GP receptionists, pharmacy staff, supermarket cashiers. Each interaction produces a 'Sociaal Recept': a warm, specific invitation to a real local activity. No resident is ever profiled, scored, or labelled.",
+    bullets: ["Sociaal Recept generator for frontline staff", "Live database of community activities in each wijk", "Anonymous attendance tracking via hosts, not residents", "Closes the gap between municipal programs and actual uptake"],
     tone: "accent",
   },
   {
