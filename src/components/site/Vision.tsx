@@ -18,14 +18,14 @@ export function Vision() {
 
         <div className="mt-14 grid md:grid-cols-4 gap-3 text-left">
           {[
-            "Healthier neighborhoods",
-            "Stronger communities",
-            "More active public spaces",
-            "Data-driven urban wellbeing",
-          ].map((t, i) => (
+            { t: "A recept every 10 minutes", s: "Across three cities by month 18." },
+            { t: "900,000 lessons learned", s: "We are scaling the proven UK model, not reinventing it." },
+            { t: "0 loneliness scores on people", s: "Not one resident is ever labelled. By design." },
+            { t: "€2M · 18 months · 3 cities", s: "Defensible, deployable, measurable." },
+          ].map((c, i) => (
             <div key={i} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur">
-              <div className="font-display text-xl">{t}</div>
-              <div className="mt-2 text-xs text-white/50">A measurable shift, neighborhood by neighborhood.</div>
+              <div className="font-display text-xl">{c.t}</div>
+              <div className="mt-2 text-xs text-white/50">{c.s}</div>
             </div>
           ))}
         </div>
@@ -35,7 +35,7 @@ export function Vision() {
             Partner with Civica <ArrowRight className="ml-1.5 h-4 w-4" />
           </Button>
           <Button size="lg" variant="outline" className="rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10">
-            Read the research
+            Download the 1-pager
           </Button>
         </div>
       </div>
