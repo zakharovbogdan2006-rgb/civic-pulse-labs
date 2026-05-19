@@ -19,6 +19,7 @@ export function Nav() {
           <nav className="hidden md:flex items-center gap-7 text-sm text-muted-foreground">
             <a href="#platform" className="hover:text-foreground transition">Platform</a>
             <a href="#how" className="hover:text-foreground transition">How it works</a>
+            <a href="#recept" className="hover:text-foreground transition">Recept</a>
             <a href="#demo" className="hover:text-foreground transition">AI Demo</a>
             <a href="#methodology" className="hover:text-foreground transition">Methodology</a>
             <a href="#cities" className="hover:text-foreground transition">For Cities</a>
