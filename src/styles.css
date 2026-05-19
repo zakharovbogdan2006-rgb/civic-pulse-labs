@@ -150,3 +150,15 @@
     animation: shimmer 2.5s linear infinite;
   }
 }
+
+@media print {
+  body * { visibility: hidden !important; }
+  .recept-print-target, .recept-print-target * { visibility: visible !important; }
+  .recept-print-target {
+    position: absolute !important;
+    left: 50% !important;
+    top: 40px !important;
+    transform: translateX(-50%) rotate(0deg) !important;
+    box-shadow: none !important;
+  }
+}
