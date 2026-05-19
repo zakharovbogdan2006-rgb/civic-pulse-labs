@@ -1,25 +1,66 @@
+import { useState } from "react";
 import { Leaf, Printer, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const waText =
+const waTextNL =
   "Hoi%20%E2%80%94%20een%20warm%20idee%20voor%20jou%3A%20Vrijwilligersfietsenwerkplaats%2C%20zaterdag%2010%3A00%2C%20Spangesekade%2089.%20Vraag%20naar%20Erik.";
+const waTextEN =
+  "Hi%20%E2%80%94%20a%20warm%20idea%20for%20you%3A%20Volunteer%20bike%20workshop%2C%20Saturday%2010%3A00%2C%20Spangesekade%2089.%20Ask%20for%20Erik.";
 
 const principles = [
   {
-    title: "Geen diagnose",
+    title: "No diagnosis",
     body: "No resident is ever labelled lonely. The word doesn't appear in any resident-facing message.",
   },
   {
-    title: "Geen profilering",
+    title: "No profiling",
     body: "The worker types in plain text and discards it. Nothing is stored about the resident.",
   },
   {
-    title: "Echt menselijk",
+    title: "Truly human",
     body: "The connector is always a real person the resident already trusts. AI is just the index of what's nearby.",
   },
 ];
 
+type Lang = "nl" | "en";
+
+const copy: Record<Lang, {
+  eyebrow: string;
+  for: string;
+  activity: string;
+  when: string;
+  where: string;
+  host: (name: string) => React.ReactNode;
+  warm: string;
+  stamp: React.ReactNode;
+}> = {
+  nl: {
+    eyebrow: "SOCIAAL RECEPT",
+    for: "Voor:",
+    activity: "Vrijwilligers-fietsenwerkplaats",
+    when: "Zaterdag 10:00–14:00",
+    where: "De Wielewaal, Spangesekade 89",
+    host: (name) => <>Gastheer: vraag naar <span className="font-semibold">{name}</span></>,
+    warm: "Erik verwacht je. Tweedehands fietsbel komt goed van pas.",
+    stamp: <>GEMEENTE<br />ROTTERDAM</>,
+  },
+  en: {
+    eyebrow: "SOCIAL PRESCRIPTION",
+    for: "For:",
+    activity: "Volunteer bike workshop",
+    when: "Saturday 10:00–14:00",
+    where: "De Wielewaal, Spangesekade 89",
+    host: (name) => <>Host: ask for <span className="font-semibold">{name}</span></>,
+    warm: "Erik is expecting you. A second-hand bike bell will come in handy.",
+    stamp: <>CITY OF<br />ROTTERDAM</>,
+  },
+};
+
 export function Recept() {
+  const [lang, setLang] = useState<Lang>("nl");
+  const t = copy[lang];
+  const waText = lang === "nl" ? waTextNL : waTextEN;
+
   return (
     <section id="recept" className="relative py-28 bg-soft">
       <div className="mx-auto max-w-7xl px-6">
@@ -37,8 +78,27 @@ export function Recept() {
           </p>
         </div>
 
+        {/* Language toggle */}
+        <div className="mt-10 flex justify-center">
+          <div className="inline-flex rounded-full border border-border bg-card p-1">
+            {(["nl", "en"] as const).map((l) => (
+              <button
+                key={l}
+                onClick={() => setLang(l)}
+                className={`px-4 py-1.5 text-xs uppercase tracking-widest rounded-full transition ${
+                  lang === l
+                    ? "bg-foreground text-background"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {l === "nl" ? "Nederlands" : "English"}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Recept card */}
-        <div className="mt-16 flex justify-center">
+        <div className="mt-10 flex justify-center">
           <div
             className="recept-print-target relative bg-white text-foreground shadow-elegant"
             style={{
@@ -49,7 +109,6 @@ export function Recept() {
               transform: "rotate(-1.5deg)",
             }}
           >
-            {/* noise overlay */}
             <div
               aria-hidden
               className="noise pointer-events-none absolute inset-0"
@@ -57,64 +116,50 @@ export function Recept() {
             />
 
             <div className="relative">
-              {/* Header */}
               <div className="flex items-center gap-2" style={{ color: "var(--primary)" }}>
                 <Leaf className="h-3.5 w-3.5" />
                 <span
                   className="font-display"
                   style={{ fontSize: 11, letterSpacing: "3px" }}
                 >
-                  SOCIAAL RECEPT
+                  {t.eyebrow}
                 </span>
               </div>
 
-              {/* amber rule */}
               <div
                 className="mt-3"
-                style={{
-                  height: 1,
-                  background: "var(--accent)",
-                  opacity: 0.3,
-                }}
+                style={{ height: 1, background: "var(--accent)", opacity: 0.3 }}
               />
 
-              {/* Voor */}
               <div className="mt-5">
                 <span className="text-sm text-muted-foreground border-b border-dashed border-muted pb-0.5">
-                  Voor:
+                  {t.for}
                 </span>
               </div>
 
-              {/* Activity */}
               <div
                 className="mt-3 font-display text-foreground"
                 style={{ fontSize: 28, lineHeight: 1.1 }}
               >
-                Vrijwilligers-fietsenwerkplaats
+                {t.activity}
               </div>
 
-              {/* When / where */}
               <div className="mt-4 text-sm text-muted-foreground leading-relaxed">
-                <div>Zaterdag 10:00–14:00</div>
-                <div>De Wielewaal, Spangesekade 89</div>
+                <div>{t.when}</div>
+                <div>{t.where}</div>
               </div>
 
-              <div className="mt-3 text-sm text-foreground/80">
-                Gastheer: vraag naar <span className="font-semibold">Erik</span>
-              </div>
+              <div className="mt-3 text-sm text-foreground/80">{t.host("Erik")}</div>
 
-              {/* hairline */}
               <div className="mt-5" style={{ height: 1, background: "var(--border)" }} />
 
-              {/* Warm line */}
               <p
                 className="mt-5 italic font-display"
                 style={{ color: "var(--primary)", fontSize: 18, lineHeight: 1.35 }}
               >
-                Erik verwacht je. Tweedehands fietsbel komt goed van pas.
+                {t.warm}
               </p>
 
-              {/* Stamp */}
               <div
                 aria-hidden
                 className="absolute"
@@ -139,35 +184,25 @@ export function Recept() {
                   fontWeight: 600,
                 }}
               >
-                GEMEENTE<br />ROTTERDAM
+                {t.stamp}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Actions */}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <Button
-            variant="outline"
-            onClick={() => window.print()}
-            className="rounded-full"
-          >
+          <Button variant="outline" onClick={() => window.print()} className="rounded-full">
             <Printer className="h-4 w-4" />
             Print
           </Button>
-          <a
-            href={`https://wa.me/?text=${waText}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={`https://wa.me/?text=${waText}`} target="_blank" rel="noopener noreferrer">
             <Button className="rounded-full">
               <MessageCircle className="h-4 w-4" />
-              Stuur via WhatsApp
+              {lang === "nl" ? "Stuur via WhatsApp" : "Send via WhatsApp"}
             </Button>
           </a>
         </div>
 
-        {/* Principles */}
         <div className="grid md:grid-cols-3 gap-4 mt-12">
           {principles.map((p) => (
             <div
