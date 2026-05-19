@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AccessDialog } from "./AccessDialog";
+import { downloadOnePager } from "@/lib/onePager";
 
 export function Vision() {
   return (
@@ -40,11 +41,14 @@ export function Vision() {
               </Button>
             }
           />
-          <a href="/civica-1-pager.pdf" download>
-            <Button size="lg" variant="outline" className="rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10">
-              Download the 1-pager
-            </Button>
-          </a>
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={downloadOnePager}
+            className="rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10"
+          >
+            Download the 1-pager
+          </Button>
         </div>
       </div>
     </section>
