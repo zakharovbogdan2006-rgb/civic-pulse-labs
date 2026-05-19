@@ -14,7 +14,7 @@ const layers = [
     icon: Network,
     title: "Urban Community Intelligence",
     body: "Analyzes neighborhoods and public infrastructure to surface places that strengthen or weaken social connectedness across the city.",
-    bullets: ["Detect socially disconnected districts", "Weak community-infrastructure mapping", "Improve public spaces with evidence", "Encourage repeated face-to-face encounters"],
+    bullets: ["Map wijken with thin social infrastructure", "Identify underused public spaces and weak third places", "Improve public spaces with evidence", "Encourage repeated face-to-face encounters"],
     tone: "violet",
   },
   {
@@ -22,7 +22,7 @@ const layers = [
     icon: ScanSearch,
     title: "Neighborhood Analysis AI",
     body: "Upload any street, square, or neighborhood image. Civica validates the image, detects the location, and analyzes its social fabric — producing scores, ratings, and interventions.",
-    bullets: ["Image validity & geo-detection", "Loneliness Risk Score (0–100)", "1–5 star urban quality criteria", "Design & event-location recommendations"],
+    bullets: ["Image validity & geo-detection", "Community Connectedness Index (0–100)", "1–5 star urban quality criteria", "Design & event-location recommendations"],
     tone: "success",
   },
 ];
