@@ -198,7 +198,7 @@ export function Recept() {
           <a href={`https://wa.me/?text=${waText}`} target="_blank" rel="noopener noreferrer">
             <Button className="rounded-full">
               <MessageCircle className="h-4 w-4" />
-              {lang === "nl" ? "Stuur via WhatsApp" : "Send via WhatsApp"}
+              Send via WhatsApp
             </Button>
           </a>
         </div>
