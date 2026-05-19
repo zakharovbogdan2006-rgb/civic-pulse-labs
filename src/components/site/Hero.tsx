@@ -23,7 +23,7 @@ export function Hero() {
         </h1>
 
         <p className="mt-7 text-center text-lg text-white/70 max-w-2xl mx-auto">
-          Civica helps cities map social isolation, strengthen neighborhoods, and connect residents to real communities — using AI as connective infrastructure, never a replacement for human relationships.
+          Civica gives every Dutch municipality two things at once: a map of WHERE social infrastructure is thin, and a 30-second tool for the librarians, GPs, and shopkeepers who already see isolated residents. No loneliness score on any person. No chatbot pretending to be a friend.
         </p>
 
         <div className="mt-10 flex flex-wrap justify-center gap-3">
@@ -35,9 +35,9 @@ export function Hero() {
               </Button>
             }
           />
-          <a href="#demo">
+          <a href="#recept">
             <Button size="lg" variant="outline" className="rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10">
-              See AI analysis demo
+              See a Sociaal Recept
             </Button>
           </a>
         </div>
@@ -53,9 +53,9 @@ export function Hero() {
               <div className="ml-3 text-xs text-white/40 font-mono">civica.city / dashboard / afrikaanderwijk</div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-5">
-              <MiniStat icon={<Activity className="h-4 w-4" />} label="Connectedness" value="66 / 100" tone="success" />
-              <MiniStat icon={<Users className="h-4 w-4" />} label="Active community ties" value="+18%" tone="accent" />
-              <MiniStat icon={<MapPin className="h-4 w-4" />} label="Third places" value="12 mapped" tone="violet" />
+              <MiniStat icon={<Activity className="h-4 w-4" />} label="Social infrastructure" value="58 / 100" tone="success" />
+              <MiniStat icon={<Users className="h-4 w-4" />} label="Recepten this month" value="247" tone="accent" />
+              <MiniStat icon={<MapPin className="h-4 w-4" />} label="Active hosts" value="34" tone="violet" />
             </div>
             <div className="px-5 pb-5">
               <CityMapSVG />
