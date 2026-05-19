@@ -3,7 +3,7 @@ import { Upload, Brain, Sparkles } from "lucide-react";
 const steps = [
   { n: "01", icon: Upload, title: "Upload a neighborhood", body: "Drop a screenshot, photo, or satellite view of any street, square, or district. Civica's validator confirms it's a real, analyzable location." },
   { n: "02", icon: Brain, title: "AI analyzes the urban fabric", body: "Walkability, third places, green space, safety perception, social interaction potential — each scored against research-backed wellbeing criteria." },
-  { n: "03", icon: Sparkles, title: "Receive interventions", body: "Get a Loneliness Risk Score, design recommendations, underused-space opportunities, and the best locations to host community events." },
+  { n: "03", icon: Sparkles, title: "Receive interventions", body: "Get a Community Connectedness Index, urban-design recommendations, underused-space opportunities, and the best locations to host community events." },
 ];
 
 export function HowItWorks() {
