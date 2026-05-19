@@ -165,7 +165,7 @@ export function Demo() {
                 <RecCard
                   icon={<CalendarHeart className="h-4 w-4" />}
                   title="Best event locations"
-                  items={["Afrikaandermarkt — Saturday morning gathering", "Schoolyard #4 — intergenerational dinners", "Underused alley by library — repair café"]}
+                  items={["Examples:", "Afrikaandermarkt — Saturday morning gathering", "Schoolyard #4 — intergenerational dinners", "Underused alley by library — repair café"]}
                   tone="violet"
                 />
               </div>
