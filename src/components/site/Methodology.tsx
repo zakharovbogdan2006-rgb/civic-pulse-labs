@@ -81,7 +81,7 @@ export function Methodology() {
         <div className="max-w-2xl mb-12">
           <div className="text-xs uppercase tracking-widest text-muted-foreground mb-4">Methodology</div>
           <h2 className="font-display text-4xl md:text-6xl leading-[1.05]">
-            How the <span className="text-gradient">Urban Loneliness Risk Index</span> works.
+            How the <span className="text-gradient">Community Connectedness Index</span> works.
           </h2>
           <p className="mt-5 text-muted-foreground">
             A Graph Neural Network treats the city as a connected network — districts learn from their neighbors, not in isolation.
@@ -124,8 +124,8 @@ export function Methodology() {
                   the people who flow through it.
                 </p>
                 <p className="mt-3 text-muted-foreground leading-relaxed">
-                  This produces a <span className="text-foreground">spatial risk score</span> — a continuous map of where social
-                  isolation is most likely to emerge, validated against urban and socioeconomic data.
+                  This produces a <span className="text-foreground">spatial connectedness score</span> — a continuous map of where social
+                  infrastructure is strongest and weakest, validated against urban and socioeconomic data.
                 </p>
               </div>
               <GraphIllustration />
@@ -136,9 +136,9 @@ export function Methodology() {
             <div>
               <h3 className="font-display text-2xl md:text-3xl">How the score is actually calculated</h3>
               <p className="mt-4 text-muted-foreground max-w-3xl leading-relaxed">
-                For each district we build a normalized feature vector (every indicator scaled to 0–1, higher = more risk),
+                For each district we build a normalized feature vector (every indicator scaled to 0–1, higher = stronger connectedness signal),
                 multiply by a learned weight, sum the contributions, then adjust by the GNN neighbor signal.
-                The result is squashed into a 0–100 risk score.
+                The result is squashed into a 0–100 connectedness score.
               </p>
 
               <a
@@ -198,7 +198,7 @@ export function Methodology() {
                 <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
                   High share of single-person households (0.71<span className="text-[color:var(--warning)]">*</span>) and elevated GGD self-reported loneliness (0.62<span className="text-[color:var(--warning)]">*</span>) push the raw
                   score up. Weak social infrastructure (0.34<span className="text-[color:var(--warning)]">*</span>) adds little offset. Neighboring districts also score moderately high
-                  (mean 0.46<span className="text-[color:var(--warning)]">*</span>), so the GNN reinforces the signal. Final risk: <span className="text-foreground">66 / 100 — high<span className="text-[color:var(--warning)]">*</span></span>.
+                  (mean 0.46<span className="text-[color:var(--warning)]">*</span>), so the GNN reinforces the signal. Final connectedness: <span className="text-foreground">66 / 100 — high<span className="text-[color:var(--warning)]">*</span></span>.
                 </p>
               </div>
 
@@ -286,9 +286,9 @@ export function Methodology() {
                   each district's representation reflects not just its own features, but the urban condition of everything it touches.
                 </p>
                 <p className="mt-3 text-muted-foreground leading-relaxed">
-                  A district scores <span className="text-foreground">lower risk</span> when it is strongly connected to public spaces,
+                  A district scores <span className="text-foreground">higher connectedness</span> when it is strongly connected to public spaces,
                   transit hubs, mixed-use social areas, and walkable environments. Isolated, car-dependent areas with weak social
-                  infrastructure score <span className="text-foreground">higher risk</span>.
+                  infrastructure score <span className="text-foreground">lower connectedness</span>.
                 </p>
               </div>
               <ol className="space-y-3">
@@ -297,7 +297,7 @@ export function Methodology() {
                   "Aggregate feature vectors from connected neighbors",
                   "Update node representation through the learned transformation",
                   "Repeat for k layers — information propagates k hops across the city",
-                  "Map final node representations to a continuous loneliness risk score",
+                  "Map final node representations to a continuous community connectedness score",
                 ].map((step, i) => (
                   <li key={i} className="flex gap-4 rounded-xl border border-border bg-background/50 p-4">
                     <div className="font-display text-lg text-[color:var(--accent)] w-6">{i + 1}</div>
@@ -337,20 +337,20 @@ export function Methodology() {
           {active === "output" && (
             <div className="grid lg:grid-cols-2 gap-10 items-center">
               <div>
-                <h3 className="font-display text-2xl md:text-3xl">From embeddings to a spatial risk map</h3>
+                <h3 className="font-display text-2xl md:text-3xl">From embeddings to a spatial connectedness map</h3>
                 <p className="mt-4 text-muted-foreground leading-relaxed">
                   After training on urban and demographic data, the model produces a continuous{" "}
-                  <span className="text-foreground">spatial risk score</span> for every district — the estimated likelihood of social
-                  isolation and loneliness across the city.
+                  <span className="text-foreground">spatial connectedness score</span> for every district — the estimated strength of social
+                  infrastructure across the city.
                 </p>
                 <p className="mt-3 text-muted-foreground leading-relaxed">
                   City teams use the output to prioritize interventions, target social prescribing, and measure the effect of urban
                   design changes over time.
                 </p>
                 <div className="mt-6 flex items-center gap-3 text-xs text-muted-foreground">
-                  <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-[color:var(--success)]" /> low risk</span>
+                  <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-[color:var(--destructive)]" /> weak infra</span>
                   <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-[color:var(--warning)]" /> moderate</span>
-                  <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-[color:var(--destructive)]" /> high risk</span>
+                  <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-[color:var(--success)]" /> strong infra</span>
                 </div>
               </div>
               <RiskMapIllustration />
@@ -459,7 +459,7 @@ function RiskMapIllustration() {
           />
         ))}
       </div>
-      <div className="mt-3 text-center text-xs text-muted-foreground">Predicted spatial loneliness risk · district grid</div>
+      <div className="mt-3 text-center text-xs text-muted-foreground">Predicted community connectedness · district grid</div>
     </div>
   );
 }
