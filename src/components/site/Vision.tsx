@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { AccessDialog } from "./AccessDialog";
 
 export function Vision() {
   return (
@@ -31,12 +32,19 @@ export function Vision() {
         </div>
 
         <div className="mt-14 flex flex-wrap justify-center gap-3">
-          <Button size="lg" className="rounded-full bg-white text-[color:var(--primary)] hover:bg-white/90 shadow-glow">
-            Partner with Civica <ArrowRight className="ml-1.5 h-4 w-4" />
-          </Button>
-          <Button size="lg" variant="outline" className="rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10">
-            Download the 1-pager
-          </Button>
+          <AccessDialog
+            mode="register"
+            trigger={
+              <Button size="lg" className="rounded-full bg-white text-[color:var(--primary)] hover:bg-white/90 shadow-glow">
+                Partner with Civica <ArrowRight className="ml-1.5 h-4 w-4" />
+              </Button>
+            }
+          />
+          <a href="/civica-1-pager.pdf" download>
+            <Button size="lg" variant="outline" className="rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10">
+              Download the 1-pager
+            </Button>
+          </a>
         </div>
       </div>
     </section>
