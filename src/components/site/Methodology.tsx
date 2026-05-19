@@ -141,7 +141,20 @@ export function Methodology() {
                 The result is squashed into a 0–100 risk score.
               </p>
 
-              <div className="mt-8 rounded-2xl border border-border bg-background/50 overflow-hidden">
+              <a
+                href="#illustrative-note"
+                className="mt-5 flex items-start gap-3 rounded-xl border border-[color:var(--warning)]/30 bg-[color:var(--warning)]/5 p-4 text-xs text-muted-foreground hover:bg-[color:var(--warning)]/10 transition"
+              >
+                <span className="text-[color:var(--warning)] font-mono">*</span>
+                <span>
+                  <span className="text-foreground">Values marked with * are illustrative examples.</span>{" "}
+                  Real scores will be computed from live municipal data (CBS, GGD, RIVM, OSM, NDW). The current
+                  inference pipeline uses ChatGPT as a preliminary reasoning engine over public statistics; a
+                  dedicated GNN model will be trained on Dutch municipal datasets in the next phase.
+                </span>
+              </a>
+
+              <div className="mt-6 rounded-2xl border border-border bg-background/50 overflow-hidden">
                 <div className="grid grid-cols-12 gap-2 px-5 py-3 text-[11px] uppercase tracking-wider text-muted-foreground border-b border-border">
                   <div className="col-span-5">Indicator</div>
                   <div className="col-span-2 text-right">Weight wᵢ</div>
@@ -154,39 +167,73 @@ export function Methodology() {
                       <div className="text-foreground">{f.name}</div>
                       <div className="text-[11px] text-muted-foreground">Source: {f.source}</div>
                     </div>
-                    <div className="col-span-2 text-right font-mono text-muted-foreground">{f.weight.toFixed(2)}</div>
-                    <div className="col-span-2 text-right font-mono text-muted-foreground">{f.value.toFixed(2)}</div>
-                    <div className="col-span-3 text-right font-mono text-foreground">{f.contrib.toFixed(3)}</div>
+                    <div className="col-span-2 text-right font-mono text-muted-foreground">{f.weight.toFixed(2)}<span className="text-[color:var(--warning)]">*</span></div>
+                    <div className="col-span-2 text-right font-mono text-muted-foreground">{f.value.toFixed(2)}<span className="text-[color:var(--warning)]">*</span></div>
+                    <div className="col-span-3 text-right font-mono text-foreground">{f.contrib.toFixed(3)}<span className="text-[color:var(--warning)]">*</span></div>
                   </div>
                 ))}
                 <div className="grid grid-cols-12 gap-2 px-5 py-3 text-sm bg-background/70">
                   <div className="col-span-9 text-muted-foreground">Σ wᵢ · xᵢ &nbsp;(raw feature score)</div>
-                  <div className="col-span-3 text-right font-mono text-foreground">0.508</div>
+                  <div className="col-span-3 text-right font-mono text-foreground">0.508<span className="text-[color:var(--warning)]">*</span></div>
                 </div>
               </div>
 
               <div className="mt-6 grid md:grid-cols-3 gap-3">
                 <div className="rounded-xl border border-border bg-background/50 p-4">
                   <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Step 1 — Features</div>
-                  <div className="mt-2 text-sm">Raw score = <span className="font-mono text-foreground">0.508</span></div>
+                  <div className="mt-2 text-sm">Raw score = <span className="font-mono text-foreground">0.508<span className="text-[color:var(--warning)]">*</span></span></div>
                 </div>
                 <div className="rounded-xl border border-border bg-background/50 p-4">
                   <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Step 2 — GNN neighbors</div>
-                  <div className="mt-2 text-sm">+ α · mean(neighbors) = <span className="font-mono text-foreground">+ 0.3 · 0.46 = 0.138</span></div>
+                  <div className="mt-2 text-sm">+ α · mean(neighbors) = <span className="font-mono text-foreground">+ 0.3 · 0.46 = 0.138<span className="text-[color:var(--warning)]">*</span></span></div>
                 </div>
                 <div className="rounded-xl border border-border bg-background/50 p-4">
                   <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Step 3 — Squash</div>
-                  <div className="mt-2 text-sm">σ(0.646) · 100 ≈ <span className="font-mono text-[color:var(--accent)]">66 / 100</span></div>
+                  <div className="mt-2 text-sm">σ(0.646) · 100 ≈ <span className="font-mono text-[color:var(--accent)]">66 / 100<span className="text-[color:var(--warning)]">*</span></span></div>
                 </div>
               </div>
 
               <div className="mt-6 rounded-2xl border border-border bg-gradient-to-br from-background/70 to-background/20 p-6">
-                <div className="text-sm text-foreground">Worked example — district in Rotterdam-Zuid</div>
+                <div className="text-sm text-foreground">Worked example — district in Rotterdam-Zuid <span className="text-[color:var(--warning)] font-mono">*</span></div>
                 <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-                  High share of single-person households (0.71) and elevated GGD self-reported loneliness (0.62) push the raw
-                  score up. Weak social infrastructure (0.34) adds little offset. Neighboring districts also score moderately high
-                  (mean 0.46), so the GNN reinforces the signal. Final risk: <span className="text-foreground">66 / 100 — high</span>.
+                  High share of single-person households (0.71<span className="text-[color:var(--warning)]">*</span>) and elevated GGD self-reported loneliness (0.62<span className="text-[color:var(--warning)]">*</span>) push the raw
+                  score up. Weak social infrastructure (0.34<span className="text-[color:var(--warning)]">*</span>) adds little offset. Neighboring districts also score moderately high
+                  (mean 0.46<span className="text-[color:var(--warning)]">*</span>), so the GNN reinforces the signal. Final risk: <span className="text-foreground">66 / 100 — high<span className="text-[color:var(--warning)]">*</span></span>.
                 </p>
+              </div>
+
+              <div id="illustrative-note" className="mt-8">
+                <div className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Real benchmarks the model will be calibrated against</div>
+                <div className="grid md:grid-cols-2 gap-3">
+                  {[
+                    {
+                      name: "De Jong Gierveld Loneliness Scale (6-item)",
+                      body: "Validated short scale used by CBS & RIVM. Score 0–6, ≥5 = severe loneliness. National baseline: 10.1% severely lonely (CBS 2025).",
+                      src: "RIVM · CBS Sociale Samenhang en Welzijn",
+                    },
+                    {
+                      name: "Gezondheidsmonitor Volwassenen & Ouderen",
+                      body: "Quadrennial GGD survey covering all 342 Dutch municipalities. Provides neighborhood-level loneliness % (46.2% felt lonely in 2024).",
+                      src: "GGD GHOR · CBS · RIVM (2024)",
+                    },
+                    {
+                      name: "OECD How's Life? — Social Connections",
+                      body: "Cross-country social-connectedness indicators: support network, time spent with others, trust. Used to validate the spatial output.",
+                      src: "OECD WISE (2024)",
+                    },
+                    {
+                      name: "Leefbaarometer (Min. BZK)",
+                      body: "Official Dutch neighborhood liveability index — 100+ urban & socioeconomic indicators per buurt. Used as a structural feature baseline.",
+                      src: "Ministerie van BZK",
+                    },
+                  ].map((b) => (
+                    <div key={b.name} className="rounded-xl border border-border bg-background/50 p-4">
+                      <div className="text-sm text-foreground">{b.name}</div>
+                      <div className="mt-1.5 text-xs text-muted-foreground leading-relaxed">{b.body}</div>
+                      <div className="mt-2 text-[11px] text-muted-foreground/70">Source: {b.src}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}
