@@ -14,7 +14,7 @@ const layers = [
     icon: Network,
     title: "Urban Community Intelligence",
     body: "Analyzes neighborhoods and public infrastructure to surface places that strengthen or weaken social connectedness across the city.",
-    bullets: ["Map wijken with thin social infrastructure", "Identify underused public spaces and weak third places", "Improve public spaces with evidence", "Encourage repeated face-to-face encounters"],
+    bullets: ["Map neighborhoods with thin social infrastructure", "Identify underused public spaces and weak third places", "Improve public spaces with evidence", "Encourage repeated face-to-face encounters"],
     tone: "violet",
   },
   {
