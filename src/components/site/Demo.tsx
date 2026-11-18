@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Upload, Shield, MapPin, Star, Lightbulb, CalendarHeart, Sparkles, FileCheck2, X } from "lucide-react";
 import { toast } from "sonner";
 
-const criteria = [
+const sampleCriteria = [
   { name: "Walkability", score: 4 },
   { name: "Public gathering", score: 3 },
   { name: "Green spaces", score: 5 },
@@ -16,9 +16,39 @@ const criteria = [
   { name: "Event potential", score: 5 },
 ];
 
+type Analysis = {
+  summary: string;
+  limitations: string;
+  criteria: { name: string; score: number; reason: string }[];
+  recommendations: string[];
+};
+
 export function Demo() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploaded, setUploaded] = useState<{ name: string; url: string } | null>(null);
+  const [analysisState, setAnalysisState] = useState<"idle" | "loading" | "error">("idle");
+  const [analysis, setAnalysis] = useState<Analysis | null>(null);
+
+  const analyse = async (file: File) => {
+    setAnalysisState("loading");
+    try {
+      const imageDataUrl = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result));
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      const response = await fetch("/api/public/analyze-neighborhood", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ imageDataUrl }) });
+      if (!response.ok) throw new Error();
+      const result = await response.json() as Analysis;
+      setAnalysis(result);
+      setAnalysisState("idle");
+      toast.success("Analysis completed. Review the results before using them in a decision.");
+    } catch {
+      setAnalysisState("error");
+      toast.error("AI analysis is not available on this deployment. The sample below is illustrative only.");
+    }
+  };
 
   const handleFile = (file: File | undefined) => {
     if (!file) return;
@@ -26,14 +56,19 @@ export function Demo() {
       toast.error("Please upload an image (PNG or JPG)");
       return;
     }
-    if (file.size > 10 * 1024 * 1024) {
-      toast.error("File too large — 10MB max");
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("File too large — 5MB max");
       return;
     }
     const url = URL.createObjectURL(file);
     setUploaded({ name: file.name, url });
-    toast.success("Image validated · running neighborhood analysis…");
+    setAnalysis(null);
+    void analyse(file);
   };
+
+  const displayedCriteria = analysis?.criteria ?? sampleCriteria;
+  const assessmentScore = Math.round(displayedCriteria.reduce((total, item) => total + item.score, 0) / displayedCriteria.length * 20);
+  const recommendations = analysis?.recommendations ?? ["Add 14 seating clusters along Pretorialaan", "Convert parking strip into pocket plaza", "Soft lighting on side streets to extend evening use"];
 
   return (
     <section id="demo" className="relative py-28 bg-hero text-white overflow-hidden">
@@ -46,7 +81,7 @@ export function Demo() {
           <h2 className="font-display text-4xl md:text-6xl leading-[1.05]">
             <span className="text-gradient">See your city</span><br/>through Civica's eyes.
           </h2>
-          <p className="mt-5 text-white/70">A live preview of the AI Neighborhood Analysis Tool — running on a Rotterdam-Zuid district sample.</p>
+          <p className="mt-5 text-white/70">An illustrative Rotterdam-Zuid sample. Upload an image to request a tentative visual assessment when AI analysis is configured.</p>
         </div>
 
         <div className="rounded-3xl border border-white/10 bg-[oklch(0.16_0.04_255)]/80 backdrop-blur-xl p-5 md:p-7 shadow-elegant">
@@ -67,7 +102,7 @@ export function Demo() {
                   <NeighborhoodIllustration />
                 )}
                 <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-[color:var(--success)]/20 border border-[color:var(--success)]/40 px-2.5 py-1 text-[11px] text-[color:var(--success)]">
-                  <Shield className="h-3 w-3" /> Image validated
+                  <Shield className="h-3 w-3" /> {uploaded ? "Upload validated" : "Illustrative sample"}
                 </div>
                 {uploaded && (
                   <button
@@ -85,12 +120,12 @@ export function Demo() {
                 <div className="absolute bottom-3 left-3 right-3 rounded-xl border border-white/10 bg-black/40 backdrop-blur p-3">
                   <div className="flex items-center gap-2 text-xs text-white/60">
                     <MapPin className="h-3.5 w-3.5 text-[color:var(--accent)]" />
-                    Detected location
+                    {uploaded ? "Uploaded image" : "Sample location"}
                   </div>
                   <div className="mt-1 text-sm">
                     {uploaded ? uploaded.name : "Pretorialaan · Afrikaanderwijk, Rotterdam"}
                   </div>
-                  <div className="mt-1 text-[11px] text-white/40 font-mono">51.9023°N · 4.4965°E · confidence 94%</div>
+                  <div className="mt-1 text-[11px] text-white/40 font-mono">{uploaded ? (analysisState === "loading" ? "Requesting visual assessment…" : analysisState === "error" ? "Analysis unavailable on this deployment" : "Ready for visual assessment") : "Illustrative data — not inferred from an image"}</div>
                 </div>
               </div>
 
@@ -112,7 +147,7 @@ export function Demo() {
                   </div>
                   <div>
                     <div className="text-sm">{uploaded ? "Replace image" : "Upload your own neighborhood"}</div>
-                    <div className="text-xs text-white/50">PNG, JPG up to 10MB · validated before analysis</div>
+                    <div className="text-xs text-white/50">PNG, JPG up to 5MB · visual assessment requires server configuration</div>
                   </div>
                 </div>
               </button>
@@ -122,13 +157,13 @@ export function Demo() {
             <div className="lg:col-span-3 space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-                  <div className="text-xs uppercase tracking-widest text-white/50">Community Connectedness Index</div>
+                  <div className="text-xs uppercase tracking-widest text-white/50">{analysis ? "Visual design assessment" : "Illustrative sample index"}</div>
                   <div className="mt-3 flex items-end gap-3">
-                    <div className="font-display text-6xl text-white">58</div>
-                    <div className="pb-2 text-sm text-[color:var(--warning)]">moderate connectedness</div>
+                    <div className="font-display text-6xl text-white">{assessmentScore}</div>
+                    <div className="pb-2 text-sm text-[color:var(--warning)]">{analysis ? "tentative visual assessment" : "sample only"}</div>
                   </div>
-                  <RiskMeter value={58} />
-                  <div className="mt-3 text-xs text-white/50">Above city average · trending upward last 6 months.</div>
+                  <RiskMeter value={assessmentScore} />
+                  <div className="mt-3 text-xs text-white/50">{analysis ? analysis.summary : "Illustrative data; no city comparison or trend is claimed."}</div>
                 </div>
 
                 <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
@@ -141,7 +176,7 @@ export function Demo() {
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
                 <div className="text-xs uppercase tracking-widest text-white/50 mb-4">Urban quality criteria</div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2.5 gap-x-6">
-                  {criteria.map((c) => (
+                  {displayedCriteria.map((c) => (
                     <div key={c.name} className="flex items-center justify-between text-sm">
                       <span className="text-white/80">{c.name}</span>
                       <div className="flex items-center gap-0.5">
@@ -159,13 +194,13 @@ export function Demo() {
                 <RecCard
                   icon={<Lightbulb className="h-4 w-4" />}
                   title="Urban design improvements"
-                  items={["Add 14 seating clusters along Pretorialaan", "Convert parking strip into pocket plaza", "Soft lighting on side streets to extend evening use"]}
+                  items={recommendations}
                   tone="accent"
                 />
                 <RecCard
                   icon={<CalendarHeart className="h-4 w-4" />}
-                  title="Best event locations"
-                  items={["Examples:", "Afrikaandermarkt — Saturday morning gathering", "Schoolyard #4 — intergenerational dinners", "Underused alley by library — repair café"]}
+                  title="Assessment limitations"
+                  items={analysis ? [analysis.limitations] : ["Illustrative sample only", "No uploaded image has been assessed", "Configure the server key to enable analysis"]}
                   tone="violet"
                 />
               </div>
@@ -173,31 +208,22 @@ export function Demo() {
               <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
                 <div className="flex items-center gap-2 text-sm text-white/70">
                   <Sparkles className="h-4 w-4 text-[color:var(--accent)]" />
-                  Generated by Civica AI · validated against OECD wellbeing indicators
+                  {analysis ? "AI-assisted visual assessment · requires human review" : "Illustrative sample data · not generated from an uploaded image"}
                 </div>
                 <Button
                   size="sm"
                   onClick={() => {
                     const report = {
                       generatedAt: new Date().toISOString(),
-                      location: uploaded?.name ?? "Pretorialaan · Afrikaanderwijk, Rotterdam",
-                      coordinates: { lat: 51.9023, lon: 4.4965, confidence: 0.94 },
-                      connectednessIndex: 58,
-                      connectednessLevel: "moderate",
-                      criteria,
+                      image: uploaded?.name ?? "Rotterdam-Zuid illustrative sample",
+                      assessmentScore,
+                      analysisStatus: analysis ? "AI visual assessment" : "illustrative sample",
+                      summary: analysis?.summary ?? "Illustrative sample — not inferred from an image.",
+                      limitations: analysis?.limitations ?? "No AI analysis was requested.",
+                      criteria: displayedCriteria,
                       recommendations: {
-                        urbanDesign: [
-                          "Add 14 seating clusters along Pretorialaan",
-                          "Convert parking strip into pocket plaza",
-                          "Soft lighting on side streets to extend evening use",
-                        ],
-                        eventLocations: [
-                          "Afrikaandermarkt — Saturday morning gathering",
-                          "Schoolyard #4 — intergenerational dinners",
-                          "Underused alley by library — repair café",
-                        ],
+                        urbanDesign: recommendations,
                       },
-                      validatedAgainst: "OECD wellbeing indicators",
                     };
                     const blob = new Blob([JSON.stringify(report, null, 2)], { type: "application/json" });
                     const url = URL.createObjectURL(blob);
